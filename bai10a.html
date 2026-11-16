@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập 10a - JavaScript DOM</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .box {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #0066cc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        #boxColor {
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+            margin-top: 15px;
+            background-color: white;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>BÀI TẬP 10a - JAVASCRIPT VỚI DOM</h1>
+
+    <div class="container">
+
+        <!-- BÀI 1 -->
+        <div class="box">
+            <h2>Bài 1: Thay đổi nội dung tiêu đề</h2>
+
+            <h1 id="title">Xin chào</h1>
+
+            <button onclick="changeTitle()">
+                Thay đổi tiêu đề
+            </button>
+        </div>
+
+
+        <!-- BÀI 2 -->
+        <div class="box">
+            <h2>Bài 2: Ẩn / Hiện phần tử</h2>
+
+            <p id="content">
+                Đây là đoạn văn dùng để thực hành ẩn và hiện bằng JavaScript DOM.
+            </p>
+
+            <button onclick="toggleContent()">
+                Ẩn / Hiện
+            </button>
+        </div>
+
+
+        <!-- BÀI 3 -->
+        <div class="box">
+            <h2>Bài 3: Đếm số lần click</h2>
+
+            <h3>Số lần click: <span id="count">0</span></h3>
+
+            <button onclick="increase()">
+                Tăng
+            </button>
+
+            <button onclick="resetCount()">
+                Reset
+            </button>
+        </div>
+
+
+        <!-- BÀI 4 -->
+        <div class="box">
+            <h2>Bài 4: Thay đổi màu nền theo input</h2>
+
+            <p>Chọn màu nền bạn muốn:</p>
+
+            <input type="color" id="colorInput">
+
+            <div id="boxColor"></div>
+        </div>
+
+
+        <!-- BÀI 5 -->
+        <div class="box">
+            <h2>Bài 5: Thêm mục vào danh sách</h2>
+
+            <input
+                type="text"
+                id="inputItem"
+                placeholder="Nhập nội dung..."
+            >
+
+            <button onclick="addItem()">
+                Thêm
+            </button>
+
+            <ul id="list"></ul>
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        // BÀI 1: THAY ĐỔI NỘI DUNG TIÊU ĐỀ
+
+        function changeTitle() {
+            let title = document.getElementById("title");
+
+            title.textContent = "Chào mừng bạn đến với JavaScript!";
+            title.style.color = "blue";
+        }
+
+
+        // BÀI 2: ẨN / HIỆN PHẦN TỬ
+
+        function toggleContent() {
+            let content = document.getElementById("content");
+
+            if (content.style.display === "none") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+
+
+        // BÀI 3: ĐẾM SỐ LẦN CLICK
+
+        let number = 0;
+
+        function increase() {
+            number++;
+
+            document.getElementById("count").textContent = number;
+        }
+
+        function resetCount() {
+            number = 0;
+
+            document.getElementById("count").textContent = number;
+        }
+
+
+        // BÀI 4: THAY ĐỔI MÀU NỀN THEO INPUT
+
+        let colorInput = document.getElementById("colorInput");
+        let boxColor = document.getElementById("boxColor");
+
+        colorInput.addEventListener("input", function() {
+            boxColor.style.backgroundColor = colorInput.value;
+        });
+
+
+        // BÀI 5: THÊM MỤC VÀO DANH SÁCH
+
+        function addItem() {
+            let input = document.getElementById("inputItem");
+            let list = document.getElementById("list");
+
+            let value = input.value.trim();
+
+            if (value === "") {
+                alert("Vui lòng nhập nội dung!");
+                return;
+            }
+
+            let li = document.createElement("li");
+
+            li.textContent = value;
+
+            list.appendChild(li);
+
+            input.value = "";
+            input.focus();
+        }
+
+        // Nhấn Enter để thêm mục
+        document.getElementById("inputItem")
+            .addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    addItem();
+                }
+            });
+
+    </script>
+
+</body>
+</html>
